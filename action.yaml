@@ -1,0 +1,16 @@
+name: tfrun
+description: Manage terraform collaboration
+author: Digger
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        go build
+      shell: bash
+    - run: tfrun
+      shell: bash
+
+branding:
+  icon: globe
+  color: purple
