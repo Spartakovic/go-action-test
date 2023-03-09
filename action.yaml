@@ -5,7 +5,9 @@ author: Digger
 runs:
   using: "composite"
   steps:
-    - run: go run ${{github.action_path}}/main.go
+    - run: |
+        cd ${{github.action_path}}
+        go run
       shell: bash
 
 branding:
