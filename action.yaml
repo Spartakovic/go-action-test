@@ -5,11 +5,7 @@ author: Digger
 runs:
   using: "composite"
   steps:
-    - run: |
-        ls -la ${{github.action_path}}
-        go run ${{github.action_path}}
-      shell: bash
-    - run: tfrun
+    - run: go run ${{github.action_path}}/main.go
       shell: bash
 
 branding:
