@@ -2,13 +2,10 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"github.com/hashicorp/terraform-exec/tfexec"
-	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
-	"path/filepath"
 )
 
 // write code to print something to the console
@@ -38,12 +35,11 @@ func main() {
 		if err != nil {
 			log.Fatalf("error running Plan: %s", err)
 		}
-		data, err := ioutil.ReadFile(filepath.Join(workingDir, "plan.tfplan"))
+		plan, err := tf.ShowPlanFileRaw(context.Background(), "plan.tfplan")
 		if err != nil {
-			fmt.Println(err)
-			return
+			log.Fatalf("error running ShowPlanFile: %s", err)
 		}
-		fmt.Println(string(data))
+		log.Printf("plan: %s", plan)
 
 	} else if tfCommand == "apply" {
 		err := tf.Apply(context.Background())
