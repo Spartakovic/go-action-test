@@ -5,7 +5,9 @@ author: Digger
 runs:
   using: "composite"
   steps:
-    - run: go run ${{github.action_path}}
+    - run: |
+        ls -la ${{github.action_path}}
+        go run ${{github.action_path}}
       shell: bash
     - run: tfrun
       shell: bash
