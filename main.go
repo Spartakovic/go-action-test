@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"path/filepath"
 )
 
 // write code to print something to the console
@@ -37,7 +38,7 @@ func main() {
 		if err != nil {
 			log.Fatalf("error running Plan: %s", err)
 		}
-		data, err := ioutil.ReadFile("plan.tfplan")
+		data, err := ioutil.ReadFile(filepath.Join(workingDir, "plan.tfplan"))
 		if err != nil {
 			fmt.Println(err)
 			return
