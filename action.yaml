@@ -7,7 +7,7 @@ runs:
   steps:
     - run: |
         cd ${{github.action_path}}
-        go run
+        go run main.go
       shell: bash
 
 branding:
