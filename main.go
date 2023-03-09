@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"github.com/hashicorp/terraform-exec/tfexec"
+	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
@@ -35,6 +37,13 @@ func main() {
 		if err != nil {
 			log.Fatalf("error running Plan: %s", err)
 		}
+		data, err := ioutil.ReadFile("plan.tfplan")
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println(string(data))
+
 	} else if tfCommand == "apply" {
 		err := tf.Apply(context.Background())
 		if err != nil {
