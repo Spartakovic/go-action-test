@@ -6,7 +6,7 @@ runs:
   using: "composite"
   steps:
     - run: |
-        go build
+        go install ${{github.action_path}}
       shell: bash
     - run: tfrun
       shell: bash
