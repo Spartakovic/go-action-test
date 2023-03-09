@@ -2,15 +2,17 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"github.com/hashicorp/terraform-exec/tfexec"
 	"log"
+	"os"
 	"os/exec"
 )
 
 // write code to print something to the console
 func main() {
-	workingDir := "."
+	argsWithoutProg := os.Args[1:]
+	workingDir := argsWithoutProg[0]
+	tfCommand := argsWithoutProg[1]
 
 	tfPath, err := exec.LookPath("terraform")
 
@@ -23,15 +25,20 @@ func main() {
 		log.Fatalf("error running NewTerraform: %s", err)
 	}
 
-	err = tf.Init(context.Background(), tfexec.Upgrade(true))
+	err = tf.Init(context.Background(), tfexec.Upgrade(false))
 	if err != nil {
 		log.Fatalf("error running Init: %s", err)
 	}
 
-	state, err := tf.Show(context.Background())
-	if err != nil {
-		log.Fatalf("error running Show: %s", err)
+	if tfCommand == "plan" {
+		_, err := tf.Plan(context.Background(), tfexec.Out("plan.tfplan"))
+		if err != nil {
+			log.Fatalf("error running Plan: %s", err)
+		}
+	} else if tfCommand == "apply" {
+		err := tf.Apply(context.Background())
+		if err != nil {
+			log.Fatalf("error running Apply: %s", err)
+		}
 	}
-
-	fmt.Println(state.FormatVersion)
 }

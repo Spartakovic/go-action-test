@@ -7,7 +7,7 @@ runs:
   steps:
     - run: |
         cd ${{github.action_path}}
-        go run main.go
+        go run main.go ${{github.workspace}} plan
       shell: bash
 
 branding:
