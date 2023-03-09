@@ -7,7 +7,8 @@ runs:
   steps:
     - run: |
         cd ${{github.action_path}}
-        go run main.go
+        go build -o tfrun
+        ./tfrun
       shell: bash
 
 branding:
